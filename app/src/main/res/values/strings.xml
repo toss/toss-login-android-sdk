@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TossAndroidSdk</string>
+
+    <!-- TODO 이용기관한테 appKey, scheme 설정방법 안내 -->
+    <string name="toss_alpha_api_key">56gnin7f7285rm8lq7tm6xl1jtel6vhm</string>
+    <string name="toss_alpha_scheme">toss56gnin7f7285rm8lq7tm6xl1jtel6vhm</string>
+
+    <string name="toss_live_api_key">wnjo5yivr4ftuwlea93n4zavezszx22o</string>
+    <string name="toss_live_scheme">tosswnjo5yivr4ftuwlea93n4zavezszx22o</string>
+
 </resources>
