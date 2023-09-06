@@ -1,0 +1,62 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+ext.versionMajor = 1
+ext.versionMinor = 0
+ext.versionPatch = 0
+ext.sdkVersionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+
+android {
+    namespace 'com.vivarepublica.loginsdk'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 23
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionName sdkVersionName
+    }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
+    buildTypes {
+
+        debug {
+            buildConfigField "String", "VERSION_NAME", "\"${sdkVersionName}\""
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "VERSION_NAME", "\"${sdkVersionName}\""
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    viewBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.lifecycle:lifecycle-common:2.6.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
