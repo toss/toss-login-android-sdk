@@ -37,6 +37,20 @@ Android 12(API 31) 이상을 타깃으로 하는 앱인 경우, exported 요소�
 scheme 속성의 값은 `toss{NATIVE_APP_KEY}` 형식으로 입력합니다. 예를 들어 앱 키가 "123456789"라면 "toss123456789"를 입력합니다.
 
 
+### 토스앱 설치 여부 확인을 위해서
+targetSdkVersion 가 30(Android 11) 이상인 앱에서 토스앱 설치 여부를 확인하기 위해서는 
+`AndroidManifest.xml`에 다음과 같이 `<queries>` 태그를 추가해야 합니다.
+
+```xml
+
+<manifest package="...">
+    <queries>
+        <package android:name="viva.republica.toss" />
+    </queries>
+</manifest>
+
+```
+
 ## 시작하기
 
 ### SDK 초기화
