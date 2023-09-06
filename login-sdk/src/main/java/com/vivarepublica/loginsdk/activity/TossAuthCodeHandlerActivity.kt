@@ -17,6 +17,7 @@ class TossAuthCodeHandlerActivity : ComponentActivity() {
             url?.toTossLoginResult()?.let {
                 TossLoginController.loginResultHandler.emit(it)
             }
+            finish()
         }
 
     }

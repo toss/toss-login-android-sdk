@@ -23,7 +23,7 @@
         <category android:name="android.intent.category.BROWSABLE" />
         <category android:name="android.intent.category.DEFAULT" />
 
-        <!-- Redirect URI: "toss{APP_KEY}://oauth" -->
+        <!-- Redirect URI: "toss{NATIVE_APP_KEY}://oauth" -->
         <data
             android:host="oauth"
             android:scheme="toss${NATIVE_APP_KEY}" />
@@ -56,7 +56,7 @@ class TossLoginApplication : Application() {
 ```
 만약 Application 클래스에서 초기화를 하셨다면,
 AndroidManifest.xml의 application 클래스에도 Toss SDK 초기화를 수행한 클래스의 이름을 설정해야 합니다. 
-위 예제에서는 GlobalApplication 클래스에서 초기화를 했으므로 아래와 같이 동일한 이름을 설정에 추가합니다.
+위 예제에서는 TossLoginApplication 클래스에서 초기화를 했으므로 아래와 같이 동일한 이름을 설정에 추가합니다.
 
 ```xml
 <application
@@ -68,7 +68,27 @@ AndroidManifest.xml의 application 클래스에도 Toss SDK 초기화를 수행�
 
 ### 로그인 요청
 
-토스로 로그인을 하기 위해 
+토스로 로그인을 하기 위해선 `TossSdk.login(context: Context, onResult: (TossLoginResult) -> Unit)` 함수를 호출하세요,
+`isLoginAvailable(context: Context)` 함수로 토스앱 실행 가능 여부를 확인할 수 있어요.
+```kotlin
 
+if (TossLoginController.isLoginAvailable(context).not()) {
+    return TossLoginController.moveToPlaystore(context)
+}
 
-
+TossLoginController.login(context) { resunt -> 
+    when (result) {
+        is TossLoginResult.Success -> {
+            // authCode 를 통해 accessToken을 발급받으세요.
+            val accessToken = result.authCode
+        }
+        is TossLoginResult.Error -> {
+            Log.e("TossLogin", "error: ${result.error}")
+        }
+        is TossLoginResult.Cancel -> {
+            // 사용자가 취소했어요.
+            Log.e("TossLogin", "cancel")
+        }
+    }
+}
+```

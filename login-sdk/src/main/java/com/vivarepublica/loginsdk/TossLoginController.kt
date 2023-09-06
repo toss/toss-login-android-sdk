@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.vivarepublica.loginsdk.foundation.*
-import com.vivarepublica.loginsdk.foundation.Constants.LOGIN_TIME_OUT
 import com.vivarepublica.loginsdk.model.TossLoginResult
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -23,24 +22,16 @@ object TossLoginController {
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    fun login(context: Context, timeoutMs: Long = LOGIN_TIME_OUT, onResult: (TossLoginResult) -> Unit) {
+    fun login(context: Context, onResult: (TossLoginResult) -> Unit) {
         GlobalScope.launch {
             val loginUrl = createLoginUrl(context)
 
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(loginUrl))
             context.startActivity(intent)
 
-            try {
-                withTimeout(timeoutMs) {
-                    val result = loginResultHandler.first()
-                    withContext(Dispatchers.Main) {
-                        onResult(result)
-                    }
-                }
-            } catch (e: Throwable) {
-                withContext(Dispatchers.Main) {
-                    onResult(TossLoginResult.Error(TossSdkError("error", "${e.message}")))
-                }
+            val result = loginResultHandler.first()
+            withContext(Dispatchers.Main) {
+                onResult(result)
             }
         }
     }
