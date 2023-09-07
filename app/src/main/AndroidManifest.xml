@@ -25,7 +25,6 @@
             </intent-filter>
         </activity>
 
-        <!-- TODO 이용기관한테 Activity 설정방법 안내 -->
         <activity
             android:name="com.vivarepublica.loginsdk.activity.TossAuthCodeHandlerActivity"
             android:exported="true">
