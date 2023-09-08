@@ -3,6 +3,9 @@
 
 ## 설치 하기
 
+### 요구 사항
+토스 Android SDK를 설치하기 전에 최소 요구 사항을 확인하세요.
+- Android 6.0 (API 23) 이상
 
 ### 라이브러리 다운로드
 
@@ -26,11 +29,6 @@ dependencies {
     implementation 'com.github.toss:toss-android-sdk:v1.0.0'
 }
 ```
-
-### 요구 사항
-토스 Android SDK를 설치하기 전에 최소 요구 사항을 확인하세요.
-- Android 6.0 (API 23) 이상 
-- (TODO) gradle 설정 채워야 함
 
 ## 사전 설정
 
