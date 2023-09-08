@@ -3,6 +3,30 @@
 
 ## 설치 하기
 
+
+### 라이브러리 다운로드
+
+jitpack 에 배포되어 있고, 그에 따른 설정이 필요합니다.
+
+
+1. root build.gradle 에 다음을 추가합니다.
+```groovy
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+2. 사용할 앱 build.gradle dependencies 안에 다음을 추가합니다.
+```groovy
+
+dependencies {
+    implementation 'com.github.toss:toss-android-sdk:v1.0.0'
+}
+```
+
 ### 요구 사항
 토스 Android SDK를 설치하기 전에 최소 요구 사항을 확인하세요.
 - Android 6.0 (API 23) 이상 
