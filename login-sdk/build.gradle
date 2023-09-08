@@ -59,6 +59,18 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.vivarepublica'	// 라이브러리 그룹 이름
+                artifactId = project.name			// 라이브러리 이름
+                version = sdkVersionName					// 라이브러리 버전
+            }
+        }
+    }
+}
 
 task exportLib(type: Copy) {
     from('build/outputs/aar/')
@@ -70,15 +82,3 @@ task exportLib(type: Copy) {
 exportLib.dependsOn("assembleRelease")
 
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
-                from components.release
-                groupId = 'com.vivarepublica.loginsdk'	// 라이브러리 그룹 이름
-                artifactId = project.name			// 라이브러리 이름
-                version = sdkVersionName					// 라이브러리 버전
-            }
-        }
-    }
-}
