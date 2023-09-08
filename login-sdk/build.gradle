@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 ext.versionMajor = 1
@@ -31,9 +32,6 @@ android {
         }
 
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
             buildConfigField "String", "VERSION_NAME", "\"${sdkVersionName}\""
         }
     }
@@ -59,4 +57,28 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+
+
+task exportLib(type: Copy) {
+    from('build/outputs/aar/')
+    into('release/')
+    include("${project.name}-release.aar")
+    rename("${project.name}-release.aar", "${project.name}-${sdkVersionName}.aar")
+}
+
+exportLib.dependsOn("assembleRelease")
+
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.vivarepublica.loginsdk'	// 라이브러리 그룹 이름
+                artifactId = project.name			// 라이브러리 이름
+                version = sdkVersionName					// 라이브러리 버전
+            }
+        }
+    }
 }
