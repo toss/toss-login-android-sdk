@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.vivarepublica.loginsdk.foundation.*
+import com.vivarepublica.loginsdk.model.TossLoginPolicy
 import com.vivarepublica.loginsdk.model.TossLoginResult
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,9 +23,13 @@ object TossLoginController {
     }
 
     @OptIn(DelicateCoroutinesApi::class)
-    fun login(context: Context, onResult: (TossLoginResult) -> Unit) {
+    fun login(
+        context: Context,
+        policy: TossLoginPolicy? = null,
+        onResult: (TossLoginResult) -> Unit
+    ) {
         GlobalScope.launch {
-            val loginUrl = createLoginUrl(context)
+            val loginUrl = createLoginUrl(context, policy)
 
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(loginUrl))
             context.startActivity(intent)
@@ -36,7 +41,10 @@ object TossLoginController {
         }
     }
 
-    private fun createLoginUrl(context: Context): String {
+    private fun createLoginUrl(
+        context: Context,
+        policy: TossLoginPolicy? = null
+    ): String {
 
         fun createRedirectUrlPrefix(): String {
             val appKey = TossSdk.appKey ?: throw NotExistAppKeyError()
@@ -53,6 +61,11 @@ object TossLoginController {
             .appendQueryParameter("device", "android-${Constants.OS_VERSION}")
             .appendQueryParameter("version", appVersion(context))
             .appendQueryParameter("origin", packageName(context))
+            .apply {
+                policy?.let {
+                    appendQueryParameter("oauth_policy", it.paramString)
+                }
+            }
             .build()
 
         return loginUrl.toString()
