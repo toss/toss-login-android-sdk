@@ -26,7 +26,7 @@ allprojects {
 ```groovy
 
 dependencies {
-    implementation 'com.github.toss:toss-android-sdk:1.0.2'
+    implementation 'com.github.toss:toss-android-sdk:1.0.3'
 }
 ```
 
