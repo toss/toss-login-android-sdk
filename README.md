@@ -104,7 +104,7 @@ class TossLoginApplication : Application() {
 
 ### 로그인 요청
 
-- 토스로 로그인을 하기 위해선 `TossSdk.login(context: Context, policy : TossLoginPolicy?, onResult: (TossLoginResult) -> Unit)` 함수를 호출하세요
+- 토스로 로그인을 하기 위해선 `TossLoginController.login(context: Context, policy : TossLoginPolicy?, onResult: (TossLoginResult) -> Unit)` 함수를 호출하세요
   - policy 의 default 는 null 입니다 -> null 이면 policy 가 설정되지 않습니다.
 - `isLoginAvailable(context: Context)` 함수로 토스앱 실행 가능 여부를 확인할 수 있어요.
 
