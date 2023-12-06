@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import com.vivarepublica.loginsdk.foundation.*
-import com.vivarepublica.loginsdk.model.TossLoginPolicy
 import com.vivarepublica.loginsdk.model.TossLoginResult
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -25,7 +24,7 @@ object TossLoginController {
     @OptIn(DelicateCoroutinesApi::class)
     fun login(
         context: Context,
-        policy: TossLoginPolicy? = null,
+        policy: String? = null,
         onResult: (TossLoginResult) -> Unit
     ) {
         GlobalScope.launch {
@@ -43,7 +42,7 @@ object TossLoginController {
 
     private fun createLoginUrl(
         context: Context,
-        policy: TossLoginPolicy? = null
+        policy: String? = null
     ): String {
 
         fun createRedirectUrlPrefix(): String {
@@ -63,7 +62,7 @@ object TossLoginController {
             .appendQueryParameter("origin", packageName(context))
             .apply {
                 policy?.let {
-                    appendQueryParameter("oauth_policy", it.paramString)
+                    appendQueryParameter("oauth_policy", policy)
                 }
             }
             .build()
