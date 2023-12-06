@@ -104,7 +104,7 @@ class TossLoginApplication : Application() {
 
 ### 로그인 요청
 
-토스로 로그인을 하기 위해선 `TossSdk.login(context: Context, onResult: (TossLoginResult) -> Unit)` 함수를 호출하세요,
+토스로 로그인을 하기 위해선 `TossSdk.login(context: Context, policy : TossLoginPolicy, onResult: (TossLoginResult) -> Unit)` 함수를 호출하세요,
 `isLoginAvailable(context: Context)` 함수로 토스앱 실행 가능 여부를 확인할 수 있어요.
 ```kotlin
 
@@ -112,7 +112,7 @@ if (TossLoginController.isLoginAvailable(context).not()) {
     return TossLoginController.moveToPlaystore(context)
 }
 
-TossLoginController.login(context) { resunt -> 
+TossLoginController.login(context, TossLoginPolicy.CHANGE_PERSONAL_INFO) { resunt -> 
     when (result) {
         is TossLoginResult.Success -> {
             // authCode 를 통해 accessToken을 발급받으세요.
