@@ -1,10 +1,10 @@
-# 토스 android-sdk
-토스 Android SDK 를 위한 모노레포입니다.
+# 토스 로그인 android-sdk
+토스 로그인 Android SDK 를 위한 모노레포입니다.
 
 ## 설치 하기
 
 ### 요구 사항
-토스 Android SDK를 설치하기 전에 최소 요구 사항을 확인하세요.
+토스 로그인 Android SDK를 설치하기 전에 최소 요구 사항을 확인하세요.
 - Android 6.0 (API 23) 이상
 
 ### 라이브러리 다운로드
